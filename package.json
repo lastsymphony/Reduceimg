@@ -1,14 +1,14 @@
 {
-  "name": "vercel-github-scraper",
+  "name": "pi7-resizer",
   "version": "1.0.0",
-  "type": "module",
   "private": true,
-  "dependencies": {
-    "cheerio": "^1.0.0",
-    "node-fetch": "^3.3.2"
-  },
+  "type": "module",
   "scripts": {
     "dev": "vercel dev",
     "start": "vercel dev"
+  },
+  "dependencies": {
+    "busboy": "^1.6.0",
+    "sharp": "^0.33.4"
   }
 }
