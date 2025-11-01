@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs20.x",
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "routes": [
+    { "src": "/api/pi7/reduce", "dest": "/api/pi7/reduce.js" },
+    { "src": "/api/pi7/download", "dest": "/api/pi7/download.js" },
+    { "src": "/api/pi7/auto", "dest": "/api/pi7/auto.js" }
+  ]
+}
