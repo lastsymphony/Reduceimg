@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kath Serverless Scraper (No Token)</title>
+  <style>
+    body{font-family:system-ui,Inter,Arial;margin:0;padding:24px;background:#0b1020;color:#e7ecff}
+    .card{background:#121a35;border:1px solid #223058;border-radius:16px;padding:16px;max-width:920px;margin:auto;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    input,select,button{padding:10px 12px;border-radius:10px;border:1px solid #2a3b7a;background:#0d1430;color:#fff}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .row>*{flex:1 1 240px}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1430;padding:12px;border-radius:12px;max-height:60vh;overflow:auto}
+    a{color:#8ab4ff}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>⚙️ Serverless Scraper (Tanpa Token)</h1>
+    <div class="row">
+      <input id="url" placeholder="https://example.com" />
+      <select id="format">
+        <option value="json">json</option>
+        <option value="html">html</option>
+      </select>
+      <button onclick="go()">Scrape</button>
+    </div>
+    <div>Contoh cepat: 
+      <a href="/api/scrape?url=https://example.com&format=json" target="_blank">JSON</a> · 
+      <a href="/api/scrape?url=https://example.com&format=html" target="_blank">HTML</a>
+    </div>
+    <h3>Output</h3>
+    <pre id="out">Ready.</pre>
+  </div>
+<script>
+async function go(){
+  const url = document.getElementById('url').value || 'https://example.com';
+  const format = document.getElementById('format').value || 'json';
+  const out = document.getElementById('out');
+  out.textContent = 'Loading...';
+  try{
+    const r = await fetch(`/api/scrape?url=${encodeURIComponent(url)}&format=${format}`);
+    if(format === 'html'){
+      const t = await r.text();
+      out.textContent = t.slice(0, 5000) + (t.length>5000?'...\n[trimmed]':'');
+    }else{
+      const j = await r.json();
+      out.textContent = JSON.stringify(j, null, 2);
+    }
+  }catch(e){
+    out.textContent = 'Error: ' + e.message;
+  }
+}
+</script>
+</body>
+</html>
